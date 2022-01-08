@@ -16,6 +16,13 @@ export function TaskList() {
 
   function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
+    const newTask: Task = {
+      id: Math.random(),
+      title: newTaskTitle,
+      isComplete: false,
+    }
+    setTasks((oldState) => [...oldState, newTask]);
+    setNewTaskTitle('');
   }
 
   function handleToggleTaskCompletion(id: number) {
@@ -38,7 +45,7 @@ export function TaskList() {
             onChange={(e) => setNewTaskTitle(e.target.value)}
             value={newTaskTitle}
           />
-          <button type="submit" data-test-id="add-task-button" onClick={handleCreateNewTask}>
+          <button type="submit" data-testid="add-task-button" onClick={handleCreateNewTask}>
             <FiCheckSquare size={16} color="#fff"/>
           </button>
         </div>
@@ -48,7 +55,7 @@ export function TaskList() {
         <ul>
           {tasks.map(task => (
             <li key={task.id}>
-              <div className={task.isComplete ? 'completed' : ''} data-test-id="task" >
+              <div className={task.isComplete ? 'completed' : ''} data-testid="task" >
                 <label className="checkbox-container">
                   <input
                     type="checkbox"
@@ -61,7 +68,7 @@ export function TaskList() {
                 <p>{task.title}</p>
               </div>
 
-              <button type="button" data-test-id="remove-task-button" onClick={() => handleRemoveTask(task.id)}>
+              <button type="button" data-testid="remove-task-button" onClick={() => handleRemoveTask(task.id)}>
                 <FiTrash size={16}/>
               </button>
             </li>
